@@ -2,9 +2,11 @@
 
 @section('content')
           
-@foreach($newrides as $ride)
-    <div class = "container">
-        <div class="card text-center">
+@foreach($rides as $ride)
+
+<div class = "container">
+<a href="{{ url('/result/'.$ride['id']) }}">
+<div class="card text-center">
         <div class ="panel panel-primary">
         <div class="card-body">
         <h5 class="card-title text-center">{{ $ride['pickup_date'] }}</h5>
@@ -20,27 +22,12 @@
        
         </div>
         </div>
-        </div>
+        </div></a>
+        
         </a>
         
-    <!-- {{json_encode($ride)}} -->
+   
     </div>
-    
+     
     
 @endforeach
-
-<!-- @extends('app')
-
-@section('content')
-          
-@foreach($newrides as $ride)
-    <div class = "container">
-        <div>
-        
-    
-        </div>
-    {{json_encode($ride)}}
-    </div>
-    
-    
-@endforeach -->

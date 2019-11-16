@@ -17,9 +17,10 @@ Route::get('/', function () {
 //route search 
 Route::post('/', 'RideController@search');
 
-Route::get('/results', function($newrides){
-    return view('results');
+// Route::resource('/results', 'RideController');
+Route::get('/results', function(){
+    return view('result');
 });
-Route::get('/results/{id}', function($newrides){
-    return view('results');
-});
+Route::get('result/{id}', 'RideController@details');
+
+
