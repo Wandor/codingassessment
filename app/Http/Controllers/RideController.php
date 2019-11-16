@@ -8,8 +8,11 @@ use TeamTNT\TNTSearch\TNTSearch;
 
 class RideController extends Controller
 {
- 
-    
+ public function results(){
+     $rides = Ride::orderByDesc('created_at')->paginate(10);
+     return view('result')->withRides($rides);
+ }
+
     public function Search(Request $request, Ride $rides)
     {
         $rides = $rides->newQuery();
@@ -19,13 +22,13 @@ class RideController extends Controller
             $rides = Ride::search($request->input('keyword'))
                             ->where('status', 'completed')
                             ->get();
-            
+
         };
         //filter based on cancelled rides
         if($request->has('cancelled'))
         {
             $rides = Ride::search($request->input('keyword'))->get();
-            
+
         }
         //filter based on distance
         if($request->has('distance'))
@@ -60,30 +63,27 @@ class RideController extends Controller
                 ->where('duration', '=<', 3)->get();
         }
         // return json_decode($rides->get());
-        
+
         // $ridedata= json_decode($rides, true);
-        
+
         return view('result', compact('rides'));
-        
+
     }
 
 
     public function details($id)
     {
-        // $ride=DB::select(DB::raw('select * from rides where id=$id'));
-        $rides = DB::table('rides')->where('id', $id)->get();
-        
-        // DB::table('rides')->findBy($id);;
-        return view('details', compact('rides'));
-        
+       $ride = Ride::findOrFail($id);
+        return view('details', compact('ride'));
+
     }
     // public function details($id)
     // {
     //     $rides=DB::select(DB::raw("SELECT * FROM rides WHERE id='$id'"));
     //     // $rides = DB::select(DB::raw("SELECT * FROM rides')
-    //     //                 ->where('id',$id)->get();         
+    //     //                 ->where('id',$id)->get();
     //     $rides = $rides->get();
     //     return view('details', compact('rides'));
-        
+
     // }
 }

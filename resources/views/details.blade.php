@@ -2,17 +2,18 @@
 
 @section('content')
 
-@foreach($rides as $ride)
+
 <div class="container">
     <div>
-    {{ $ride->pickup_date }}
-    <!-- {{ $ride->request_date}} -->
+        <p>{{ $ride->pickup_date }}</p>
+        <p>{{ $ride->request_date}}</p>
+        <p>{{ $ride->cost}}</p>
+        <p>{{ $ride->driver_rating}}</p>
+
     </div>
     <br>
     <div></div>
     <br>
     <div></div>
-<!-- {{$ride}} -->
 </div>
-@endforeach
 
