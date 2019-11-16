@@ -12,9 +12,12 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        //
-    ];
+
+        protected $commands = [
+            \App\Console\Commands\IndexRides::class
+        ];
+
+    
 
     /**
      * Define the application's command schedule.

@@ -12,10 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('search');
 });
 //route search 
-Route::get('/search',['uses' => 'RideController@Search','as' => 'search']);
+Route::post('/', 'RideController@search');
 
-Route::get('/{ride}',['uses' => 'RideController@student','as' => 'student.show']);
-Route::post('/search', 'RideController@index')->name('searchRideForm');
+Route::get('/results', function($newrides){
+    return view('results');
+});
+Route::get('/results/{id}', function($newrides){
+    return view('results');
+});

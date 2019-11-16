@@ -25,11 +25,6 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar navbar-default">
-        
-        </nav>
-    </div>
 
     @yield('content')
     <!-- JavaScripts -->
