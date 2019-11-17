@@ -85,10 +85,6 @@ class RideController extends Controller
                ->orWhere('dropoff_location', 'LIKE', "%{$request->keyword}%");
        }
 
-        if ($request->has('cancelled')) {
-            $query->where('status', strtoupper($request->cancelled));
-        }
-
         if ($request->has('distance')) {
             switch ($request->distance) {
                 case '3':
@@ -102,7 +98,15 @@ class RideController extends Controller
             }
         }
 
-        $rides = $query->where('status', '!=', 'CANCELLED')->get();
+
+
+        if ($request->has('cancelled')) {
+            $query->orWhere('status', 'CANCELLED');
+        } else {
+            $query->where('status', '!=', 'CANCELLED');
+        }
+
+        $rides = $query->get();
 
         return view('search', get_defined_vars());
     }
@@ -111,7 +115,6 @@ class RideController extends Controller
     {
        $ride = Ride::findOrFail($id);
         return view('details', compact('ride'));
-
     }
 
 }
