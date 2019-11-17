@@ -14,12 +14,11 @@
 Route::get('/', function () {
     return view('search');
 });
-//route search 
+//route search
 Route::post('/', 'RideController@search');
 
-Route::get('/results', function($newrides){
-    return view('results');
-});
-Route::get('/results/{id}', function($newrides){
-    return view('results');
-});
+// Route::resource('/results', 'RideController');
+Route::get('/results', 'RideController@results');
+Route::get('result/{id}', 'RideController@details');
+
+

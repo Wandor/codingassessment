@@ -23,8 +23,8 @@ class CreateRidesTable extends Migration
             $table->float('dropoff_lat');
             $table->float('dropoff_lng');
             $table->text('dropoff_location');
-            $table->timestamp('pickup_date')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('dropoff_date')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('pickup_date')->default(\DB::raw('CURRENT_TIMESTAMP'))->nullable();
+            $table->timestamp('dropoff_date')->default(\DB::raw('CURRENT_TIMESTAMP'))->nullable();
             $table->text('type');
             $table->integer('driver_id')->unsigned();
             $table->text('driver_name');
@@ -41,6 +41,7 @@ class CreateRidesTable extends Migration
             $table->text('distance_unit');
             $table->integer('cost')->unsigned();
             $table->text('cost_unit');
+            $table->timestamps();
 
         });
     }

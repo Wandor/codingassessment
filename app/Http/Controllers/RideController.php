@@ -8,22 +8,28 @@ use TeamTNT\TNTSearch\TNTSearch;
 
 class RideController extends Controller
 {
-    
+ public function results(){
+     $rides = Ride::orderByDesc('created_at')->paginate(10);
+     return view('result')->withRides($rides);
+ }
+
     public function Search(Request $request, Ride $rides)
     {
+        $cancelled = $request->input('cancelled');
         $rides = $rides->newQuery();
         //filter out rides based on keyword search
-        if($request->filled('keyword'))
+        if($request->has('keyword'))
         {
             $rides = Ride::search($request->input('keyword'))
-                            ->where('status', 'completed')->get();
-            
+                            ->where('status', 'completed')
+                            ->get();
+
         };
         //filter based on cancelled rides
         if($request->has('cancelled'))
         {
-            $rides = Ride::search($request->input('keyword'));
-            
+            $rides = Ride::search($request->input('keyword'))->get();
+
         }
         //filter based on distance
         if($request->has('distance'))
@@ -34,14 +40,16 @@ class RideController extends Controller
                         ['distance', '>', 3],
                         ['status','=','completed'],
                     ]
-                    );
+                    )->get();
+                    return $rides->toArray();
+            return view('result', compact('rides'));
+                // return $rides->toArray();
             // return $rides->where('distance', '=<', 3);
             // $rides = Ride::search($request->input('keyword'))->get();
-            // var_dump(json_encode($rides));
         }
         if($request->has(['distance', 'cancelled'])){
             $rides = DB::table('rides')
-                ->where('distance', '=<', 3);
+                ->where('distance', '=<', 3)->get();
         }
         // return $rides->get();
         if($request->has('duration'))
@@ -52,31 +60,26 @@ class RideController extends Controller
                         ['duration', '>', 3],
                         ['status','=','completed'],
                     ]
-                    );
-            // return $rides->where('distance', '=<', 3);
-            // $rides = Ride::search($request->input('keyword'))->get();
-            // var_dump(json_encode($rides));
+                    )->get();
         }
         if($request->has(['duration', 'cancelled'])){
             $rides = DB::table('rides')
-                ->where('duration', '=<', 3);
+                ->where('duration', '=<', 3)->get();
         }
-        // if($request->input()){
-        //     $rides = DB::table('rides')
-        //         ->where('duration', '=<', 3);
+        // return json_decode($rides->get());
 
-        // }
-        
-        // var_dump($rides);
-        $newrides= json_decode($rides, true);
-        // dd($rides);
-        return view('/result',compact('newrides'));
-        
+        // $ridedata= json_decode($rides, true);
+
+        return view('result', compact('rides'));
+
     }
 
 
-    public function result($ride)
+    public function details($id)
     {
-        return view('result');
+       $ride = Ride::findOrFail($id);
+        return view('details', compact('ride'));
+
     }
+
 }
