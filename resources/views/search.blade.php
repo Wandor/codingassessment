@@ -12,7 +12,7 @@
         {{csrf_field()}}
         <div>
             <div class="input-group">
-                <input type="text" class="form-control" name="keyword" placeholder="Search ride by keyword"> 
+                <input type="text" class="form-control" name="keyword" placeholder="Search ride by keyword" > 
                     <span class="input-group-btn">
                         <a href="{{action('RideController@search')}}">
                             <button type="submit" class="btn btn-default">
@@ -23,7 +23,7 @@
             </div>
             <div class="text-center">
                 <label for="checkbox" style="word-wrap">Include Cancelled Trips</label>
-                    <input  name="cancelled" type="checkbox" checked>
+                    <input  name="cancelled" type="checkbox" value="cancelled" checked>
             </div>
             <div class="container">
             <div class="row">

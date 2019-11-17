@@ -15,6 +15,7 @@ class RideController extends Controller
 
     public function Search(Request $request, Ride $rides)
     {
+        $cancelled = $request->input('cancelled');
         $rides = $rides->newQuery();
         //filter out rides based on keyword search
         if($request->has('keyword'))
@@ -40,6 +41,9 @@ class RideController extends Controller
                         ['status','=','completed'],
                     ]
                     )->get();
+                    return $rides->toArray();
+            return view('result', compact('rides'));
+                // return $rides->toArray();
             // return $rides->where('distance', '=<', 3);
             // $rides = Ride::search($request->input('keyword'))->get();
         }
@@ -77,13 +81,5 @@ class RideController extends Controller
         return view('details', compact('ride'));
 
     }
-    // public function details($id)
-    // {
-    //     $rides=DB::select(DB::raw("SELECT * FROM rides WHERE id='$id'"));
-    //     // $rides = DB::select(DB::raw("SELECT * FROM rides')
-    //     //                 ->where('id',$id)->get();
-    //     $rides = $rides->get();
-    //     return view('details', compact('rides'));
 
-    // }
 }
