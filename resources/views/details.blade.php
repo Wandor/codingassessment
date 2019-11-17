@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col">
       <p>
-        <label for="Request Date">Request Date</label><br>    	
+        <label for="Request Date">Request Date</label><br>
           <i class="fa fa-calendar"></i>
           <span>{{ date("d/m/Y", strtotime($ride->request_date))}}</span><br>
       </p>
@@ -24,7 +24,7 @@
       </p>
     </div>
     <div class="float-left">
-      
+
       <label>Trip Status</label>
       <br>
       {{ $ride->status}}
@@ -61,7 +61,7 @@
       <p>
         <span>
           <i class="fa fa-clock-o"></i>
-          {{ date("H:i:s", strtotime($ride->pickup_date))}} 
+          {{ date("H:i:s", strtotime($ride->pickup_date))}}
           <span>Hrs</span>
         </span>
       </p>
@@ -70,11 +70,11 @@
       <p>
         <span>
           <i class="fa fa-clock-o"></i>
-          {{ date("H:i:s", strtotime($ride->dropoff_date))}} 
+          {{ date("H:i:s", strtotime($ride->dropoff_date))}}
           <span>Hrs</span>
         </span>
       </p>
-    </div>     
+    </div>
   </div>
   <hr>
   <div class="row">
@@ -90,7 +90,7 @@
           <img src="{{ $ride->driver_pic}}" alt=""><br>
       </p>
       <p>
-      @php $rating =  $ride->driver_rating; @endphp 
+      @php $rating =  $ride->driver_rating; @endphp
       <label>Driver's Rating</label>
           <br>
           @while($rating>0)
@@ -101,12 +101,12 @@
                 @endif
                 @php $rating--; @endphp
             @endwhile
-      </p>  
+      </p>
     </div>
     <div class="col">
       <label>Drive Particulars</label>
       <p>
-        <b>Distance Covered :</b> 
+        <b>Distance Covered :</b>
         <span>{{ $ride->distance}}</span>
         <span>{{ $ride->distance_unit}}</span>
       </p>
@@ -114,7 +114,7 @@
       &nbsp
       &nbsp
       <p>
-        <b>Trip Duration :</b> 
+        <b>Trip Duration :</b>
         <span>{{ $ride->duration}}</span>
         <span>{{ $ride->duration_unit}}</span>
       </p>
@@ -122,7 +122,7 @@
       &nbsp
       &nbsp
       <p>
-        <b>Total Trip Cost :</b> 
+        <b>Total Trip Cost :</b>
         <span>{{ $ride->cost}}</span>
         <span>{{ $ride->cost_unit}}</span>
       </p>
@@ -143,9 +143,9 @@
         </p>
       </p>
     </div>
-        
-        
-        
+
+
+
         </div>
         <hr>
         <div id="map_canvas" style="height: 354px; width:768px;" class="container">
@@ -208,7 +208,7 @@ function initialize() {
   });
 }
 
-    
+
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     directionsDisplay.setMap(map);
 }
@@ -216,7 +216,4 @@ function initialize() {
 </script>
 </div>
 
-
-    </div>
-    
 

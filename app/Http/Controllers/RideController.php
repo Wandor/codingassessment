@@ -75,6 +75,38 @@ class RideController extends Controller
     }
 
 
+    public function doSearch(Request $request)
+    {
+       $model = new Ride();
+       $query = $model->newQuery();
+
+       if ($request->has('keyword')) {
+           $query->where('pickup_location', 'LIKE', "%{$request->keyword}%")
+               ->orWhere('dropoff_location', 'LIKE', "%{$request->keyword}%");
+       }
+
+        if ($request->has('cancelled')) {
+            $query->where('status', strtoupper($request->cancelled));
+        }
+
+        if ($request->has('distance')) {
+            switch ($request->distance) {
+                case '3':
+                    $query->where('distance', '>', $request->distance);
+                    break;
+                case '4':
+                    $query->whereBetween('distance', [8,15]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        $rides = $query->where('status', '!=', 'CANCELLED')->get();
+
+        return view('search', get_defined_vars());
+    }
+
     public function details($id)
     {
        $ride = Ride::findOrFail($id);

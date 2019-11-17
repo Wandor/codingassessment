@@ -15,10 +15,9 @@ Route::get('/', function () {
     return view('search');
 });
 //route search
-Route::post('/', 'RideController@search');
+Route::get('/search', 'RideController@doSearch')->name('search');
 
 // Route::resource('/results', 'RideController');
 Route::get('/results', 'RideController@results');
 Route::get('result/{id}', 'RideController@details');
-
 
